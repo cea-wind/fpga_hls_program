@@ -1,7 +1,9 @@
 # Table of contents
 
-* [目录](README.md)
+* [序](README.md)
 * [引言](yin-yan/README.md)
+  * [并行计算和FPGA](yin-yan/bing-hang-ji-suan-he-fpga.md)
+  * [高层次综合\(HLS\)](yin-yan/gao-ceng-ci-zong-he-hls.md)
   * [本书结构](yin-yan/ben-shu-jie-gou.md)
 * [FPGA的硬件概述](fpga-de-ying-jian-gai-shu/README.md)
   * [查找表](fpga-de-ying-jian-gai-shu/untitled.md)
@@ -22,4 +24,5 @@
   * [图像滤波器](tu-xiang-chu-li-fang-fa/tu-xiang-lv-bo-qi.md)
 * [矩阵乘法](ju-zhen-cheng-fa/README.md)
   * [Untitled](ju-zhen-cheng-fa/untitled.md)
+* [附录A: 浮点数的计算正确性](fu-lua-fu-dian-shu-de-ji-suan-zheng-que-xing.md)
 
