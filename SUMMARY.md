@@ -25,4 +25,5 @@
 * [矩阵乘法](matrix_multiply/README.md)
   * [Untitled](matrix_multiply/untitled.md)
 * [附录A: 浮点数的计算正确性](appendix_floatpoint_correctness.md)
+* [附录B：中英文对照和缩略词](appendix_acronyms.md)
 
