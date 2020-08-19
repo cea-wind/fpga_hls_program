@@ -11,13 +11,10 @@ $$
 上述计算的代码实现如下。
 
 ```c
-void vector_add_seq(
-    int *a, int *b, int num,
-    int *c
-) {
-    for(int i=0;i<num;i++){
-        c[i] = a[i] + b[i];
-    }
+void vector_add_seq(int *a, int *b, int num, int *c) {
+  for (int i = 0; i < num; i++) {
+    c[i] = a[i] + b[i];
+  }
 }
 ```
 
@@ -38,14 +35,11 @@ void vector_add_seq(
 这样一种并行处理的设计思路叫做“流水线并行”，顾名思义，指各个处理单元像流水线上的作业形式处理数据，进而达到提高计算速率的目的。只需要添加`pragma`对编译过程进行指示，综合工具能够自动分析并处理流水线并行设计，优化后的代码如下
 
 ```c
-void vector_add_pipe(
-    int *a, int *b, int num,
-    int *c
-) {
-    for(int i=0;i<num;i++){
-    #pragma HLS PIPELINE II=1
-        c[i] = a[i] + b[i];
-    }
+void vector_add_pipe(int *a, int *b, int num, int *c) {
+  for (int i = 0; i < num; i++) {
+#pragma HLS PIPELINE II = 1
+    c[i] = a[i] + b[i];
+  }
 }
 ```
 
@@ -54,21 +48,21 @@ void vector_add_pipe(
 虽然采用了流水线并行，一次计算的平均计算时间变短了，但计算过程依旧时逐个进行的。进一步的，可以采用数据并行设计，一个时钟周期处理多个数据以提高处理性能。这一并行方式类似CPU中的SIMD或GPU中的SIMT的方式。数据并行后的代码如下所示。
 
 ```c
-void vector_add_parallel(
-    ap_uint<512> *a, ap_uint<512> *b, int num,
-    ap_uint<512> *c
-) {
-    for(int i=0;i<num;i=i+16){
-    #pragma HLS PIPELINE II=1
-        ap_uint<512> rega,regb,regc;
-        rega = a[i/16];
-        regb = b[i/16];
-        for(int j=0;j<16;j++){
-        #pragma HLS UNROLL
-            regc(32*j+31,32*j) = rega(32*j+31,32*j) +regb(32*j+31,32*j);
-        }
-        c[i/16] = regc;
+void vector_add_parallel(ap_uint<512> *a, ap_uint<512> *b, int num,
+                         ap_uint<512> *c) {
+  int batch_num = (num + 15) / 16;
+  for (int i = 0; i < batch_num; i = i + 1) {
+#pragma HLS PIPELINE II = 1
+    ap_uint<512> rega, regb, regc;
+    rega = a[i];
+    regb = b[i];
+    for (int j = 0; j < 16; j++) {
+#pragma HLS UNROLL
+      regc(32 * j + 31, 32 * j) =
+          rega(32 * j + 31, 32 * j) + regb(32 * j + 31, 32 * j);
     }
+    c[i] = regc;
+  }
 }
 ```
 

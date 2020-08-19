@@ -21,9 +21,8 @@
   * [前缀和](parallel_function_design/prefix_sum.md)
   * [直方图统计](parallel_function_design/histgram.md)
 * [图像处理方法](image_process/README.md)
-  * [图像滤波器](image_process/tu-xiang-lv-bo-qi.md)
-* [矩阵乘法](matrix_multiply/README.md)
-  * [Untitled](matrix_multiply/untitled.md)
+  * [图像滤波器](image_process/image_filter.md)
+* [矩阵乘法](matrix_multiply.md)
 * [附录A: 浮点数的计算正确性](appendix_floatpoint_correctness.md)
 * [附录B：中英文对照和缩略词](appendix_acronyms.md)
 

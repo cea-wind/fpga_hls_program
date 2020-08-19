@@ -11,14 +11,11 @@ $$
 为了增加一些设计的难度，假设进行累加计算的数据类型是`float`类型，此时上述计算采用代码表示如下。
 
 ```c
-void vector_accum_seq(
-    float *a, int num,
-    float *b
-) {
-    b[0] = 0;
-    for(int i=0;i<num;i++){
-        b[0] += a[i];
-    }
+void vector_accum_seq(float *a, int num, float *b) {
+  b[0] = 0;
+  for (int i = 0; i < num; i++) {
+    b[0] += a[i];
+  }
 }
 ```
 
@@ -29,16 +26,13 @@ void vector_accum_seq(
 根据上一章向量加法的设计，通过增加`PIPELINE`的`Pramga`，可以轻易的实现流水线并行。据此可以尝试添加流水线并行的设计。
 
 ```c
-void vector_accum_pipe_bad(
-    float *a, int num,
-    float *b
-) {
-    float regb = 0;
-    for(int i=0;i<num;i++){
-    #pragma HLS PIPELINE II=1
-        regb += a[i];
-    }
-    b[0] = regb;
+void vector_accum_pipe_bad(float *a, int num, float *b) {
+  float regb = 0;
+  for (int i = 0; i < num; i++) {
+#pragma HLS PIPELINE II = 1
+    regb += a[i];
+  }
+  b[0] = regb;
 }
 ```
 
@@ -53,20 +47,17 @@ void vector_accum_pipe_bad(
 从示意图可以看出，在循环迭代的过程中，由于第`i+1` 次迭代需要使用第`i` 次计算的结果，因此只有在第`i` 次计算完成后才能开始第`i+1` 次计算。这实际上是先写后读（Read After Write，RAW）的数据依赖问题。
 
 ```c
-void vector_accum_pipe_good(
-    float *a, int num,
-    float *b
-) {
-    float regb[8] = {0,0,0,0,0,0,0,0};
-    for(int i=0;i<num;i++){
-    #pragma HLS PIPELINE II=1
-        regb[i%8] += a[i];
-    }
-    for(int i=1;i<8;i++){
-    #pragma HLS PIPELINE II=8
-        regb[0] += regb[i];
-    }
-    b[0] = regb[0];
+void vector_accum_pipe_good(float *a, int num, float *b) {
+  float regb[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+  for (int i = 0; i < num; i++) {
+#pragma HLS PIPELINE II = 1
+    regb[i % 8] += a[i];
+  }
+  for (int i = 1; i < 8; i++) {
+#pragma HLS PIPELINE II = 8
+    regb[0] += regb[i];
+  }
+  b[0] = regb[0];
 }
 ```
 
@@ -79,40 +70,38 @@ void vector_accum_pipe_good(
 
 
 ```c
-void vector_accum_parallel(
-    ap_uint<512> *a, int num,
-	float *b
-) {
-    float regb[16][8];
-    #pragma HLS ARRAY_PARTITION variable=regb complete dim=1
-    // initial regb
-    for(int i=0;i<8;i++){
-    #pragma HLS PIPELINE II=1
-        for(int j=0;j<16;j++){
-        #pragma HLS UNROLL
-            regb[j][i] = 0.0f;
-        }
+void vector_accum_parallel(ap_uint<512> *a, int num, float *b) {
+  float regb[16][8];
+#pragma HLS ARRAY_PARTITION variable = regb complete dim = 1
+  // initial regb
+  for (int i = 0; i < 8; i++) {
+#pragma HLS PIPELINE II = 1
+    for (int j = 0; j < 16; j++) {
+#pragma HLS UNROLL
+      regb[j][i] = 0.0f;
     }
-    // load 16 data in parallel
-    for(int i=0;i<(num+15)/16;i++){
-    #pragma HLS PIPELINE II=1
-    	ap_uint<512> rega;
-        rega = a[i];
-        for(int j=0;j<16;j++){
-        #pragma HLS UNROLL
-        	int temp = rega(32*j+31,32*j);
-            regb[j][i%8] += *(float *)&temp;
-        }
-    }  
-    // reduce 16 parallel result
-    float regc = 0.0f;  
-    for(int i=0;i<8;i++){
-        for(int j=0;j<16;j++){
-		#pragma HLS PIPELINE II=8
-            regc += regb[j][i];
-        }
+  }
+  int batch_num = (num + 15) / 16;
+  // load 16 data in parallel
+  for (int i = 0; i < batch_num; i++) {
+#pragma HLS PIPELINE II = 1
+    ap_uint<512> rega;
+    rega = a[i];
+    for (int j = 0; j < 16; j++) {
+#pragma HLS UNROLL
+      int temp = rega(32 * j + 31, 32 * j);
+      regb[j][i % 8] += *(float *)&temp;
     }
-    b[0] = regc;
+  }
+  // reduce 16 parallel result
+  float regc = 0.0f;
+  for (int i = 0; i < 8; i++) {
+    for (int j = 0; j < 16; j++) {
+#pragma HLS PIPELINE II = 8
+      regc += regb[j][i];
+    }
+  }
+  b[0] = regc;
 }
 ```
 
