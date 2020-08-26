@@ -75,6 +75,8 @@ $$
 
 
 
+![Prefix Scan&#x8BA1;&#x7B97;&#x793A;&#x610F;&#x56FE;](https://raw.githubusercontent.com/cea-wind/blogs_pictures/master/img20200827013810.png)
+
 这种并行求和的算法被称为 Hillis and Steele Scan，两种并行算法各有其优劣。
 
 
