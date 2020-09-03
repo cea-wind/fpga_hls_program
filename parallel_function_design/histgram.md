@@ -2,9 +2,7 @@
 
 ## 1. 概述
 
-$$
-a = b
-$$
+
 
 ```c
 void histgram_seq(int *a, int num, int *hist) {
@@ -24,7 +22,7 @@ void histgram_seq(int *a, int num, int *hist) {
 }
 ```
 
-test $$a = b$$ 
+
 
 ## 2. 流水线设计中的数据依赖
 
