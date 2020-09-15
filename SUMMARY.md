@@ -21,7 +21,10 @@
   * [直方图统计](parallel_function_design/histgram.md)
 * [图像处理方法](image_process/README.md)
   * [图像滤波器](image_process/image_filter.md)
-* [矩阵乘法](matrix_multiply.md)
+* [矩阵乘法](matrix_multiply/README.md)
+  * [分块矩阵乘法](matrix_multiply/block_matrix_multiply.md)
+  * [二维脉动阵列](matrix_multiply/2d_systolic_array.md)
+  * [矩阵乘法的设计框架](matrix_multiply/design_method.md)
 * [附录A: 浮点数的计算正确性](appendix_floatpoint_correctness.md)
 * [附录B：中英文对照和缩略词](appendix_acronyms.md)
 
