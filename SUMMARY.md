@@ -1,10 +1,7 @@
 # Table of contents
 
 * [序](README.md)
-* [引言](introduction/README.md)
-  * [并行计算和FPGA](introduction/parallel_compute_and_fpga.md)
-  * [高层次综合\(HLS\)](introduction/introduce_hls.md)
-  * [本书结构](introduction/structure.md)
+* [引言](introduction.md)
 * [FPGA的硬件概述](fpga_hardware_description/README.md)
   * [查找表](fpga_hardware_description/lut.md)
   * [SRAM](fpga_hardware_description/sram.md)
@@ -20,7 +17,8 @@
   * [前缀扫描](parallel_function_design/prefix_scan.md)
   * [直方图统计](parallel_function_design/histgram.md)
 * [图像处理方法](image_process/README.md)
-  * [图像滤波器](image_process/image_filter.md)
+  * [Untitled](image_process/untitled.md)
+  * [图像处理算法](image_process/image_proces_algo.md)
 * [矩阵乘法](matrix_multiply/README.md)
   * [分块矩阵乘法](matrix_multiply/block_matrix_multiply.md)
   * [二维脉动阵列](matrix_multiply/2d_systolic_array.md)
