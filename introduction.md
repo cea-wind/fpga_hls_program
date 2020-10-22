@@ -14,7 +14,7 @@
 
 采用HLS进行开发时，一般通过C/C++或者SystemC的语法进行开发，利用提供的综合工具将C/C++代码综合成为硬件描述语言。不同改的HLS工具会提供自定义的一些指示信号来控制整个综合的过程，也会提供完整的基于C/C++的仿真和基于RTL的仿真环境。其中采用C/C++进行开发的有Xilinx的Vivado HLS（后期更新为Vitis HLS），Intel HLS；采用SystemC进行开发的有Cadence的Stratus HLS；Mentor的Catapult HLS同时支持C/C++和SystemC。
 
-考虑到工具的成熟度，资料的丰富程度和软件的获取难度，本书采用Xilinx的Vivado HLS进行具体的实现。但并行设计的方法甚至代码很容易迁移到其他工具中。
+考虑到工具的成熟度，资料的丰富程度和软件的获取难度，本书采用Xilinx的Vivado HLS进行具体的实现，但并行设计的方法甚至代码很容易迁移到其他工具中。
 
 ## 3. 本书的组织结构
 
