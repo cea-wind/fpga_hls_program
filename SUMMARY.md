@@ -2,9 +2,9 @@
 
 * [序](README.md)
 * [引言](introduction.md)
-* [FPGA的硬件概述](fpga_hardware_description/README.md)
+* [FPGA硬件概述](fpga_hardware_description/README.md)
   * [查找表](fpga_hardware_description/lut.md)
-  * [SRAM](fpga_hardware_description/sram.md)
+  * [BRAM和DSP](fpga_hardware_description/sram_dsp_ipcore.md)
   * [FPGA计算系统](fpga_hardware_description/fpga_compute_system.md)
 * [HLS的编程模型](hls_program_model/README.md)
   * [接口和数据类型](hls_program_model/interface_datatype.md)
@@ -22,7 +22,10 @@
 * [矩阵乘法](matrix_multiply/README.md)
   * [分块矩阵乘法](matrix_multiply/block_matrix_multiply.md)
   * [二维脉动阵列](matrix_multiply/2d_systolic_array.md)
+  * [Google TPU设计分析](matrix_multiply/google-tpu-she-ji-fen-xi.md)
+  * [Telsa FSD设计分析](matrix_multiply/telsa-fsd-she-ji-fen-xi.md)
   * [矩阵乘法的设计框架](matrix_multiply/design_method.md)
 * [附录A: 浮点数的计算正确性](appendix_floatpoint_correctness.md)
 * [附录B：中英文对照和缩略词](appendix_acronyms.md)
+* [附录C：分块矩阵乘法代码详解](block_matrix_mul_code_analysis.md)
 
