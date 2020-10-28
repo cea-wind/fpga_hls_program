@@ -1,5 +1,9 @@
 # 附录C：分块矩阵乘法代码详解
 
+## 总体架构
+
+
+
 ### 3.1 并行乘法单元
 
 当完成分块后，最后的计算核心是一组并行的乘法计算单元。这一组计算单元可以完成 $$S_A\times S_B$$ 的矩阵乘法，不失一般性，假设矩阵的大小分别为`PARAL_M*PARAL_K`和`PARAL_M*PARAL_N` ，
@@ -216,6 +220,23 @@ void LoadMatrixA(ap_uint<32 * PARAL_K> *a, int a_row, int a_col, int b_col,
 
 
 ### 3.4 数据写回
+
+
+
+## 总结
+
+在分块矩阵乘法的HLS C代码的实现过程中，涉及到HLS中的多种概念和HLS C的编程技巧。包括
+
+* 基于DATAFLOW的模块并行方法
+* 基于PingPang设计的模块并行方法
+* 使用`Pragma PIPELINE`实现流水线并行
+* 使用`Pragma UNROLL`实现数据并行
+* 采用合适的数组切分方法
+* 采用寄存器作为Cache解决先写后读的数据依赖
+
+
+
+
 
 
 
